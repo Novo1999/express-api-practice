@@ -9,6 +9,7 @@
 - Connect with DB
 - Set up env file
 - Set up Schema
+- Set up error handler
 - Set up JWT configuration
 - Set up CRUD operations
 - Set up security
