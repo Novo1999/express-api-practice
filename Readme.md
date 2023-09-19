@@ -8,6 +8,9 @@
 - Set up middlewares, controllers
 - Connect with DB
 - Set up env file
+- Set up Schema
 - Set up JWT configuration
 - Set up CRUD operations
--
+- Set up security
+- Set up frontend of the app
+- Deploy
