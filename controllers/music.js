@@ -1,13 +1,22 @@
-const getAllMusic = (req, res) => {
-  res.send('All musics')
+const Music = require('../models/Music')
+const { StatusCodes } = require('http-status-codes')
+
+const getAllMusic = async (req, res) => {
+  const musics = await Music.findOne({ createdBy: req.user.userId }).sort(
+    'createdAt'
+  )
+
+  return res.status(StatusCodes.OK).json({ musics })
 }
 
 const getSingleMusic = (req, res) => {
   res.send('Single musics')
 }
 
-const postMusic = (req, res) => {
-  res.send('post music')
+const postMusic = async (req, res) => {
+  req.body.createdBy = req.user.userId
+  const music = await Music.create(req.body)
+  res.status(StatusCodes.CREATED).json({ music })
 }
 
 const deleteMusic = (req, res) => {

@@ -1,10 +1,14 @@
 const express = require('express')
 require('express-async-errors')
+
 const app = express()
+
 const authRouter = require('./routes/auth')
 const musicRouter = require('./routes/music')
-const notFoundMiddleWare = require('./middlewares/not-found')
+
 const connectDB = require('./db/connect')
+
+const notFoundMiddleWare = require('./middlewares/not-found')
 const errorHandlerMiddleware = require('./middlewares/error-handler')
 const authMiddleware = require('./middlewares/authentication')
 require('dotenv').config()
