@@ -6,6 +6,7 @@ const musicRouter = require('./routes/music')
 const notFoundMiddleWare = require('./middlewares/not-found')
 const connectDB = require('./db/connect')
 const errorHandlerMiddleware = require('./middlewares/error-handler')
+const authMiddleware = require('./middlewares/authentication')
 require('dotenv').config()
 
 const port = 3000 || process.env.PORT
@@ -14,7 +15,7 @@ app.use(express.json())
 
 // routes
 app.use('/api/v1/auth', authRouter)
-app.use('/api/v1/musics', musicRouter)
+app.use('/api/v1/musics', authMiddleware, musicRouter)
 
 app.use(notFoundMiddleWare)
 app.use(errorHandlerMiddleware)
