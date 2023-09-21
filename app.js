@@ -1,5 +1,7 @@
 const express = require('express')
 require('express-async-errors')
+const helmet = require('helmet')
+const cors = require('cors')
 
 const app = express()
 
@@ -16,10 +18,14 @@ require('dotenv').config()
 const port = 3000 || process.env.PORT
 // middlewares
 app.use(express.json())
+app.use(helmet())
+app.use(cors())
 
 // routes
+
 app.use('/api/v1/auth', authRouter)
 app.use('/api/v1/musics', authMiddleware, musicRouter)
+app.use(express.static('./src'))
 
 app.use(notFoundMiddleWare)
 app.use(errorHandlerMiddleware)
