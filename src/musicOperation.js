@@ -1,4 +1,5 @@
 const allMusicsContainer = document.querySelector('.my-musics')
+const addMusic = document.querySelector('.add-music')
 
 // format Date
 function formatDate(inputDate) {
@@ -22,8 +23,9 @@ async function getAllMusics() {
       },
     })
     const data = await response.json()
+
     const musics = data.musics
-      .map(music => {
+      ?.map(music => {
         return `<div
          class="music rounded-lg bg-slate-400 shadow-lg p-4 break-all overflow-x-auto" style="margin-bottom: 16px"
        >
@@ -43,8 +45,12 @@ async function getAllMusics() {
        </div>`
       })
       .join('')
-    console.log(musics)
-    allMusicsContainer.innerHTML = musics
+
+    if (data.msg) {
+      allMusicsContainer.innerHTML = `<p class="text-5xl">${data.msg}</p>`
+    } else {
+      allMusicsContainer.innerHTML = musics
+    }
   } catch (error) {
     console.log(error)
   }

@@ -15,6 +15,33 @@ const registerSubmit = document.querySelector('.register-submit')
 
 const notification = document.querySelector('.notification')
 
+const homepage = document.querySelector('.home')
+const authSection = document.querySelector('.auth-section')
+
+const alreadyLoggedIn = document.querySelector('.already-logged-in')
+
+const logOutBtn = document.querySelector('.log-out')
+
+// Check if user is currently logged in
+function isCurrentlyLoggedIn() {
+  if (localStorage.getItem('currentUserToken')) {
+    authSection.classList.add('hidden')
+    alreadyLoggedIn.classList.remove('hidden')
+  } else {
+    authSection.classList.remove('hidden')
+    alreadyLoggedIn.classList.add('hidden')
+  }
+}
+
+isCurrentlyLoggedIn()
+
+function logOut() {
+  localStorage.removeItem('currentUserToken')
+  isCurrentlyLoggedIn()
+}
+
+logOutBtn.addEventListener('click', logOut)
+
 // Register and log in form logic
 registerLogin.forEach(btn =>
   btn.addEventListener('click', () => {
@@ -58,7 +85,7 @@ async function login(
     }, 1500)
     // redirect after user logs in
     if (user.token) {
-      window.location.replace('music-page.html')
+      window.location.href = 'music-page.html'
     }
     localStorage.setItem('currentUserToken', user.token)
   } catch (error) {

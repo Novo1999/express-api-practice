@@ -7,11 +7,41 @@
     <link href="/dist/output.css" rel="stylesheet" />
   </head>
   <body>
-    <section class="bg-slate-700 h-screen flex flex-col">
+    <section class="bg-slate-700 h-screen flex flex-col home">
       <nav class="bg-slate-800 shadow-md p-10 w-screen">
         <h1 class="text-white text-5xl">Muziko</h1>
       </nav>
-      <div class="m-auto py-6 flex flex-col justify-center sm:py-12">
+      <div class="m-auto already-logged-in hidden">
+        <div class="flex justify-center gap-4 items-center">
+          <p class="text-3xl text-white" style="margin-bottom: 10px">
+            Already logged in
+          </p>
+          <a
+            href="music-page.html"
+            style="
+              background-color: rgb(98, 98, 230);
+              border-radius: 10px;
+              margin-left: 20px;
+            "
+            class="rounded p-4 text-2xl text-white"
+          >
+            Back to my list
+          </a>
+          <button
+            style="
+              background-color: rgb(87, 87, 240);
+              border-radius: 10px;
+              margin-left: 20px;
+            "
+            class="log-out rounded p-4 text-2xl text-white"
+          >
+            Log Out
+          </button>
+        </div>
+      </div>
+      <div
+        class="m-auto py-6 flex flex-col justify-center sm:py-12 auth-section"
+      >
         <div class="relative py-3 sm:max-w-xl sm:mx-auto w-[35rem]">
           <div
             class="relative px-4 py-10 bg-slate-500 shadow-lg sm:rounded-3xl sm:p-20"
