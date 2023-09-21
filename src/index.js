@@ -15,6 +15,7 @@ const registerSubmit = document.querySelector('.register-submit')
 
 const notification = document.querySelector('.notification')
 
+// Register and log in form logic
 registerLogin.forEach(btn =>
   btn.addEventListener('click', () => {
     if (btn.innerText === 'Log in now') {
@@ -34,8 +35,12 @@ registerLogin.forEach(btn =>
 
 let notificationTimeoutId
 
+// Login the user
 async function login(
-  data = { email: loginEmailInput.value, password: loginPasswordInput.value }
+  data = {
+    email: loginEmailInput.value,
+    password: loginPasswordInput.value,
+  }
 ) {
   try {
     const response = await fetch('/api/v1/auth/login', {
@@ -52,9 +57,10 @@ async function login(
       notification.innerText = ''
     }, 1500)
     // redirect after user logs in
-    // if (user.token) {
-    //   window.location.replace()
-    // }
+    if (user.token) {
+      window.location.replace('music-page.html')
+    }
+    localStorage.setItem('currentUserToken', user.token)
   } catch (error) {
     console.log(error)
   }
@@ -65,6 +71,7 @@ loginSubmit.addEventListener('click', e => {
   clearTimeout(notificationTimeoutId)
 })
 
+// Register the user
 async function register(
   data = {
     name: usernameInput.value,
@@ -81,8 +88,11 @@ async function register(
       body: JSON.stringify(data),
     })
     const user = await response.json()
+    console.log(user)
     // setting notification
-    notification.innerText = user.msg
+    notification.innerText = user.msg.startsWith('User')
+      ? user.msg.split(':')[2]
+      : user.msg
     notificationTimeoutId = setTimeout(() => {
       notification.innerText = ''
     }, 1500)
@@ -96,3 +106,5 @@ registerSubmit.addEventListener('click', e => {
   register()
   clearTimeout(notificationTimeoutId)
 })
+
+// Get musics data associated with the user

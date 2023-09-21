@@ -10,6 +10,10 @@ const register = async (req, res) => {
     throw new BadRequestError('Please provide all required information')
   }
 
+  if (password.length < 6) {
+    throw new BadRequestError('Password needs to be longer than 6 characters')
+  }
+
   const user = await User.create({ ...req.body })
   const token = user.createJWT()
   return res
