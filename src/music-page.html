@@ -8,9 +8,35 @@
   </head>
   <body>
     <nav class="bg-slate-800 shadow-md p-10 flex justify-between">
-      <a href="index.html" class="text-white text-5xl">Muziko</a>
+      <a href="index.html" class="text-white text-5xl muziko">Muziko</a>
       <button class="text-white rounded-sm add-music">+ Add Music</button>
     </nav>
+    <form class="space-y-4 bg-slate-400 p-10 hidden form">
+      <div class="flex gap-4 flex-col">
+        <label for="track">Track</label>
+        <input class="p-4 track" type="text" name="track" placeholder="track" />
+      </div>
+      <div class="flex gap-4 flex-col">
+        <label for="artist">Artist</label>
+        <input
+          class="p-4 artist"
+          type="text"
+          name="artist"
+          placeholder="artist"
+        />
+      </div>
+      <button
+        type="submit"
+        class="submit"
+        style="
+          background-color: white;
+          padding: 10px 40px 10px 40px;
+          border-radius: 5px;
+        "
+      >
+        Add
+      </button>
+    </form>
     <div class="bg-slate-500 min-h-screen">
       <div class="my-musics p-10">
         <p class="text-5xl">Loading your musics...</p>

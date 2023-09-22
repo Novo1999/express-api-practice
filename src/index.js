@@ -115,7 +115,6 @@ async function register(
       body: JSON.stringify(data),
     })
     const user = await response.json()
-    console.log(user)
     // setting notification
     notification.innerText = user.msg.startsWith('User')
       ? user.msg.split(':')[2]
@@ -133,5 +132,3 @@ registerSubmit.addEventListener('click', e => {
   register()
   clearTimeout(notificationTimeoutId)
 })
-
-// Get musics data associated with the user

@@ -1,5 +1,12 @@
 const allMusicsContainer = document.querySelector('.my-musics')
-const addMusic = document.querySelector('.add-music')
+const addMusicBtn = document.querySelector('.add-music')
+const currentUserToken = localStorage.getItem('currentUserToken')
+const addNewForm = document.querySelector('.form')
+
+const submit = document.querySelector('.submit')
+
+const trackInput = document.querySelector('.track')
+const artistInput = document.querySelector('.artist')
 
 // format Date
 function formatDate(inputDate) {
@@ -14,11 +21,9 @@ function formatDate(inputDate) {
 }
 
 async function getAllMusics() {
-  const currentUserToken = localStorage.getItem('currentUserToken')
   try {
     const response = await fetch('api/v1/musics', {
       headers: {
-        'Content-type': 'application/json',
         Authorization: `Bearer ${currentUserToken}`,
       },
     })
@@ -26,11 +31,12 @@ async function getAllMusics() {
 
     const musics = data.musics
       ?.map(music => {
+        const { track, artist, createdAt, id } = music
         return `<div
          class="music rounded-lg bg-slate-400 shadow-lg p-4 break-all overflow-x-auto" style="margin-bottom: 16px"
        >
          <div class="flex justify-between">
-           <p class="text-3xl font-serif">${music.track}</p>
+           <p class="text-3xl font-serif">${track}</p>
            <div class="flex w-48 gap-8">
            <button >
            <img class="w-12 h-12" src="./pen.png" alt="edit">
@@ -40,8 +46,8 @@ async function getAllMusics() {
           </button>
            </div>
          </div>
-         <p class="text-xl">Artist: ${music.artist}</p>
-         <p class="text-lg">Added: ${formatDate(music.createdAt)}</p>
+         <p class="text-xl">Artist: ${artist}</p>
+         <p class="text-lg">Added: ${formatDate(createdAt)}</p>
        </div>`
       })
       .join('')
@@ -57,3 +63,32 @@ async function getAllMusics() {
 }
 
 getAllMusics()
+
+async function addMusic(
+  data = { track: trackInput.value, artist: artistInput.value }
+) {
+  try {
+    const response = await fetch('/api/v1/musics', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${currentUserToken}`,
+      },
+      body: JSON.stringify(data),
+    })
+    await response.json()
+    getAllMusics()
+  } catch (error) {
+    alert(error)
+  }
+}
+
+addMusicBtn.addEventListener('click', () => {
+  addNewForm.classList.toggle('hidden')
+})
+
+submit.addEventListener('click', e => {
+  e.preventDefault()
+  addMusic()
+  addNewForm.classList.add('hidden')
+})
