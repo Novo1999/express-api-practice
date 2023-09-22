@@ -24,12 +24,22 @@
   background-color: #3b71ca;
   padding: 1rem;
   border-radius: 10px;
+  font-size: 20px;
 }
 
 .add-music:hover {
   background-color: #93c5fd;
   transition: all;
   transition-duration: 300ms;
+}
+
+@media screen and (max-width: 768px) {
+  .add-music {
+    background-color: #3b71ca;
+    padding: 6px;
+    border-radius: 10px;
+    font-size: 10px;
+  }
 }
 
 ::before,

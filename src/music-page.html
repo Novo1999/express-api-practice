@@ -8,8 +8,10 @@
   </head>
   <body>
     <nav class="bg-slate-800 shadow-md p-10 flex justify-between">
-      <a href="index.html" class="text-white text-5xl muziko">Muziko</a>
-      <p class="text-white text-2xl welcome"></p>
+      <a href="index.html" class="text-white text-2xl lg:text-5xl muziko"
+        >Muziko</a
+      >
+      <p class="text-white text-xs lg:text-xl welcome"></p>
       <button class="text-white rounded-sm add-music">+ Add Music</button>
     </nav>
     <form class="space-y-4 bg-slate-400 p-10 hidden form">
@@ -52,7 +54,7 @@
     <div class="bg-slate-500 min-h-screen">
       <p class="notification absolute top-10 ml-2 text-white"></p>
       <div class="my-musics p-10">
-        <p class="text-5xl">Loading your musics...</p>
+        <p class="text-2xl lg:text-5xl">Loading your musics...</p>
       </div>
     </div>
     <script defer type="module" src="musicOperation.js"></script>

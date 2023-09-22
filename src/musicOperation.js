@@ -55,7 +55,7 @@ async function getAllMusics() {
       .join('')
 
     if (data.msg) {
-      allMusicsContainer.innerHTML = `<p class="text-5xl">${data.msg}</p>`
+      allMusicsContainer.innerHTML = `<p class="text-2xl lg:text-5xl">${data.msg}</p>`
     } else {
       allMusicsContainer.innerHTML = musics
     }
