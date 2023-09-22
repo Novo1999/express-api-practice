@@ -40,7 +40,10 @@ const deleteMusic = async (req, res) => {
 
 const updateMusic = async (req, res) => {
   const { id } = req.params
-  const music = await Music.findOneAndUpdate({ _id: id })
+  const music = await Music.findOneAndUpdate({ _id: id }, req.body, {
+    new: true,
+    runValidators: true,
+  })
   if (!music) {
     throw new NotFoundError('Music not found')
   }

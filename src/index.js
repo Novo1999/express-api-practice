@@ -24,7 +24,10 @@ const logOutBtn = document.querySelector('.log-out')
 
 // Check if user is currently logged in
 function isCurrentlyLoggedIn() {
-  if (localStorage.getItem('currentUserToken')) {
+  if (
+    localStorage.getItem('currentUserToken') &&
+    localStorage.getItem('currentUserToken') !== 'undefined'
+  ) {
     authSection.classList.add('hidden')
     alreadyLoggedIn.classList.remove('hidden')
   } else {
