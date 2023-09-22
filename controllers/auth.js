@@ -18,7 +18,11 @@ const register = async (req, res) => {
   const token = user.createJWT()
   return res
     .status(StatusCodes.CREATED)
-    .json({ user: { name: user.name }, token, msg: 'Account Created' })
+    .json({
+      user: { name: user.name, email: user.email, password: user.password },
+      token,
+      msg: 'Account Created',
+    })
 }
 
 const login = async (req, res) => {

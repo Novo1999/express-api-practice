@@ -1,7 +1,11 @@
 const allMusicsContainer = document.querySelector('.my-musics')
 const addMusicBtn = document.querySelector('.add-music')
 const currentUserToken = localStorage.getItem('currentUserToken')
+const currentUserName = localStorage.getItem('name')
 const form = document.querySelector('.form')
+const welcomeUser = document.querySelector('.welcome')
+
+welcomeUser.innerText = `Welcome, ${currentUserName}`
 
 const notification = document.querySelector('.notification')
 

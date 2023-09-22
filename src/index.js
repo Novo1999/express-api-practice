@@ -3,6 +3,8 @@ const registrationForm = document.querySelector('.registration-form')
 const loginForm = document.querySelector('.log-in-form')
 const registerLogin = document.querySelectorAll('.register-login')
 
+const currentUserName = localStorage.getItem('name')
+
 const usernameInput = document.querySelector('.username')
 const regEmailInput = document.querySelector('.register-email')
 const regPasswordInput = document.querySelector('.register-password')
@@ -22,6 +24,8 @@ const alreadyLoggedIn = document.querySelector('.already-logged-in')
 
 const logOutBtn = document.querySelector('.log-out')
 
+const welcomeUser = document.querySelector('.welcome')
+
 // Check if user is currently logged in
 function isCurrentlyLoggedIn() {
   if (
@@ -30,9 +34,11 @@ function isCurrentlyLoggedIn() {
   ) {
     authSection.classList.add('hidden')
     alreadyLoggedIn.classList.remove('hidden')
+    welcomeUser.innerText = `Welcome, ${currentUserName}`
   } else {
     authSection.classList.remove('hidden')
     alreadyLoggedIn.classList.add('hidden')
+    welcomeUser.innerText = 'Welcome, Please Log in or Register'
   }
 }
 
@@ -40,6 +46,7 @@ isCurrentlyLoggedIn()
 
 function logOut() {
   localStorage.removeItem('currentUserToken')
+  localStorage.removeItem('name')
   isCurrentlyLoggedIn()
 }
 
@@ -66,19 +73,17 @@ registerLogin.forEach(btn =>
 let notificationTimeoutId
 
 // Login the user
-async function login(
-  data = {
-    email: loginEmailInput.value,
-    password: loginPasswordInput.value,
-  }
-) {
+async function login(value1, value2) {
   try {
     const response = await fetch('/api/v1/auth/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify({
+        email: value1 || loginEmailInput.value,
+        password: value2 || loginPasswordInput.value,
+      }),
     })
     const user = await response.json()
     // setting notification
@@ -91,6 +96,7 @@ async function login(
       window.location.href = 'music-page.html'
     }
     localStorage.setItem('currentUserToken', user.token)
+    localStorage.setItem('name', user.user.name)
   } catch (error) {
     console.log(error)
   }
@@ -118,6 +124,17 @@ async function register(
       body: JSON.stringify(data),
     })
     const user = await response.json()
+
+    const email = regEmailInput.value
+    const password = regPasswordInput.value
+
+    if (email && password) {
+      login(email, password)
+    } else {
+      throw new Error('Not successful')
+    }
+
+    console.log(user)
     // setting notification
     notification.innerText = user.msg.startsWith('User')
       ? user.msg.split(':')[2]
