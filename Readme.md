@@ -15,3 +15,7 @@
 - Set up security
 - Set up frontend of the app
 - Deploy
+
+App live link - https://muziko.onrender.com
+
+ 
